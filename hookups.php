@@ -139,7 +139,7 @@ class cphu_shortcode {
 	/**
 	 * Вывод связанных постов из меты
 	 */
-	static function showhookups() {
+	static function showhookups($usercan = 0) {
 		//получаем записи из метабокса и перебираем значения
 		$meta = get_post_meta(get_option('cphu_curpost'), 'cp_hookups');
 		foreach ($meta as $hookedpostid) {
@@ -152,7 +152,7 @@ class cphu_shortcode {
 			}
 			//Выводим названия связанных постов в виде кнопок с поповером при нажатии,
 			//если текущий пользователь вправе редактировать посты
-			if(current_user_can('edit_post', $cphu_curpost) ) {
+			if(current_user_can('edit_post', $cphu_curpost) || $usercan !=0 ) {
 				?>
 				<a tabindex="0" class="btn btn-xs btn-default"
 				   role="button" data-toggle="popover"
@@ -252,7 +252,8 @@ class cphu_shortcode {
 		}
 
 		//Вывод связанных постов из меты
-		cphu_shortcode::showhookups($delete);
+		// (1 - чтобы права для просмотра уже были как у пользователя, иначе после аякса текущий юзер определяется как бесправный)
+		cphu_shortcode::showhookups(1);
 
 		wp_die();
 	}
