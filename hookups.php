@@ -229,7 +229,7 @@ class cphu_shortcode {
 	//Добавляю скрипт для аякса и локализую переменные
 	static function cphu_ajax_enque() {
 		global $post;
-		if( has_shortcode( $post->post_content, 'cp_hookups') ) {
+		if( has_shortcode( $post->post_content, 'cp_hookups')  || has_shortcode( $post->post_content, 'cp_hookup')) {
 			wp_enqueue_script('cphu_ajax', plugins_url('ajax.js', __FILE__), array('jquery'), '1.0', true);
 			wp_localize_script('cphu_ajax', 'cphu',
 				array(
