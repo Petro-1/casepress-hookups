@@ -59,7 +59,7 @@ class cphu_shortcode
             ?>
             <div class="checkbox">
                 <label>
-                    <input type="checkbox" value="" data-toggle="collapse" data-target="#cphu_searchform_div">
+                    <input type="checkbox" value="" data-toggle="collapse" data-target="#cphu_searchform_div" />
                     Добавить связи
                 </label>
             </div>
@@ -189,7 +189,7 @@ class cphu_shortcode
     {
         ?>
         <div>
-            <input type="hidden" id="cphu_searchform" name="cphu_addhookid" class="cp_select2_single"/>
+            <input type="hidden" id="cphu_searchform" name="cphu_addhookid" class="cp_select2_single" />
         </div>
         <script type="text/javascript">
             jQuery(document).ready(function ($) {
@@ -274,18 +274,6 @@ class cphu_shortcode
     static function cphu_callback()
     {
 
-        //Кнопка закрытия сообщения
-        ob_start();
-        ?>
-        <div style="display: inline; float: right">
-            <button id="closealert" type="button" class="close" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        <?php
-        $cphu_closebut = ob_get_contents();
-        ob_end_clean();
-
         //Если есть переменная с ID удаляемого из связей поста - удаляем
         if ($_REQUEST['cphu_delhookid']) {
             $delhookid = $_REQUEST['cphu_delhookid'];
@@ -301,9 +289,9 @@ class cphu_shortcode
                 </a>
                 удалено из списка связей.
 
-                <!-- Кнопка для восстновления удаленного дела -->
+                <!-- Кнопка для восстановления удаленного дела -->
 
-                <button id="delcancel" type="button" class="btn btn-link">
+                <button id="delcancel" type="button" class="btn btn-link alert-link">
                     <span class="glyphicon glyphicon-repeat" aria-hidden="true"></span> Восстановить
                 </button>
                 <div id="delcancelid" style="display:none;"><?php echo $delhookid; ?></div>
@@ -321,8 +309,8 @@ class cphu_shortcode
             if (in_array($addhookid, get_post_meta(get_option('cphu_curpost'), 'cp_hookups'))) {
                 ob_start();
                 ?>
-                <div class="alert alert-warning" role="alert">
-                    <?php echo $cphu_closebut; ?>
+                <div class="alert alert-warning alert-dismissible" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     Ошибка! Дело
                     <a class="alert-link" href="<?php echo get_post_permalink($addhookid); ?>">
                         <?php echo get_the_title($addhookid); ?>
@@ -349,16 +337,17 @@ class cphu_shortcode
                 }
                 ob_start();
                 ?>
-                <div class="alert alert-success" role="alert">
-                    <?php echo $cphu_closebut; ?>
+                <div class="alert alert-success alert-dismissible" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     Дело
                     <a class="alert-link" href="<?php echo get_post_permalink($addhookid); ?>">
                         <?php echo get_the_title($addhookid); ?>
                     </a>
                     <?php echo $v; ?>
-                    <!-- кнопка отмены добавления последнего дела -->
+
+                    <!-- кнопка отмены добавления дела -->
                     <button type="button"
-                            class="btn btn-link deletebutton"
+                            class="btn btn-link deletebutton alert-link"
                             value="<?php echo $addhookid; ?>">
                         <span class="glyphicon glyphicon-repeat" aria-hidden="true"></span> Отмена
                     </button>
@@ -372,8 +361,8 @@ class cphu_shortcode
             // поэтому вставляем соответствующее сообщение
             ob_start();
             ?>
-            <div class="alert alert-warning" role="alert">
-                <?php echo $cphu_closebut; ?>
+            <div class="alert alert-warning alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 Ничего не выбрано.
             </div>
             <?php
